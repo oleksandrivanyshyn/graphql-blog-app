@@ -1,10 +1,10 @@
 import './App.css';
-import { Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import Posts from './pages/Posts/Posts';
 import Profile from './pages/Profile/Profile';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Signup from './pages/Signup/Signup';
 import Signin from './pages/Signin/Signin';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
