@@ -1,5 +1,7 @@
 import { Context } from '../../index';
 import validator from 'validator';
+import * as bcrypt from 'bcryptjs';
+import * as JWT from 'jsonwebtoken';
 
 interface SignupArgs {
   credentials: {
@@ -36,5 +38,38 @@ export const authResolvers = {
         token: null,
       };
     }
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await prisma.user.create({
+      data: {
+        email,
+        name,
+        password: hashedPassword,
+      },
+    });
+
+    await prisma.user.create({
+      data: {
+        email,
+        name,
+        password: hashedPassword,
+        profile: {
+          create: {
+            bio,
+          },
+        },
+      },
+    });
+
+    const token = JWT.sign(
+      { userId: user.id },
+      process.env.JWT_SECRET as string,
+      { expiresIn: 3600000 },
+    );
+
+    return {
+      userErrors: [],
+      token,
+    };
   },
 };
