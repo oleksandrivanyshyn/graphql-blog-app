@@ -1,11 +1,7 @@
 import React from 'react';
-import { useParams } from 'react-router';
 import AddPostModal from '../../components/AddPostModal/AddPostModal';
-import Post from '../../components/Post/Post';
 
 export default function Profile() {
-  const { id } = useParams();
-
   return (
     <div>
       <div

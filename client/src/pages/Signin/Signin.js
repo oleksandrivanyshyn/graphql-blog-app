@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Form } from 'react-bootstrap';
 import Button from '@restart/ui/esm/Button';
@@ -9,7 +9,7 @@ export default function Signin() {
 
   const handleClick = () => {};
 
-  const [error, setError] = useState(null);
+  const [error] = useState(null);
 
   return (
     <div>
