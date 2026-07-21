@@ -1,4 +1,5 @@
 import { Context } from '../../index';
+import validator from 'validator';
 
 interface SignupArgs {
   credentials: {
@@ -13,17 +14,27 @@ export const authResolvers = {
   signup: async (_: any, { credentials }: SignupArgs, { prisma }: Context) => {
     const { email, name, password } = credentials;
 
-    const user = await prisma.user.create({
-      data: {
-        email,
-        name,
-        password,
-      },
-    });
+    const isEmail = validator.isEmail(email);
+    if (!isEmail) {
+      return {
+        userErrors: [{ message: 'Invalid email' }],
+        token: null,
+      };
+    }
 
-    return {
-      userErrors: [],
-      token: 'dummy-token',
-    };
+    const isValidPassword = validator.isLength(password, { min: 5 });
+    if (!isValidPassword) {
+      return {
+        userErrors: [{ message: 'Invalid password' }],
+        token: null,
+      };
+    }
+
+    if (!name || !password) {
+      return {
+        userErrors: [{ message: 'Invalid name or password' }],
+        token: null,
+      };
+    }
   },
 };
