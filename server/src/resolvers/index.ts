@@ -1,5 +1,2 @@
-import { Query } from './Query'
-
-export const resolvers = {
-    Query,
-}
+export * from './Query';
+export * from './Mutation';
