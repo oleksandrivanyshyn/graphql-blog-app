@@ -4,7 +4,11 @@ interface PostCreateArgs {
   content: string;
 }
 export const Mutation = {
-  postCreate: (_, { title, content }: PostCreateArgs, { prisma }: Context) => {
+  postCreate: (
+    _: never,
+    { title, content }: PostCreateArgs,
+    { prisma }: Context,
+  ) => {
     if (!title || !content) {
       return {
         userErrors: [
