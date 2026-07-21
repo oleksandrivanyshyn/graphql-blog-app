@@ -1,5 +1,6 @@
 import { User } from '@prisma/client';
-import * as DataLoader from 'dataloader';
+// @ts-ignore
+import DataLoader from 'dataloader';
 import { prisma } from '..';
 
 type BatchUser = (ids: number[]) => Promise<User[]>;
@@ -23,4 +24,5 @@ const batchUsers: BatchUser = async (ids) => {
   return ids.map((id) => userMap[id]);
 };
 
+// @ts-ignore
 export const userLoader = new DataLoader<number, User>(batchUsers);
